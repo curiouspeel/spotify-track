@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 // react
 import { useEffect, useState } from 'react'
 // react icons
@@ -66,6 +67,17 @@ const Home: NextPage = () => {
           Welcome!
         </h1>
 
+        {/* display image (currently playing) */}
+        {playbackState && JSON.parse(playbackState).currentlyPlayingType === 'track' &&
+          <div id={styles.outerContainer}>
+            <div id={styles.thumbnailImageContainer}>
+              <Image
+                src={JSON.parse(playbackState).trackInfo.thumbnailImage.url}
+                height={250} width={250}
+              />
+            </div>
+          </div>
+        }
         <div className={styles.grid}>
           {!accessToken ?
             <LoginButton scope={scope}/>
