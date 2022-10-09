@@ -5,6 +5,9 @@ const nextConfig = {
   env: {
     SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
   },
+  images: {
+    domains: ['i.scdn.co'],
+  },
 }
 
 module.exports = nextConfig
