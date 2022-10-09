@@ -106,7 +106,14 @@ const Home: NextPage = () => {
               }
               <br/>
               {/* logout button */}
-              <button className={styles.code} onClick={()=>handleSpotifyLogout(setAccessToken)}>Log out &rarr;</button>
+              <button className={styles.code}
+                onClick={() => {
+                  setPlaybackState(undefined);
+                  setRecentlyPlayed(undefined);
+                  handleSpotifyLogout(setAccessToken);
+                }}>
+                Log out &rarr;
+              </button>
             </div>
           }
         </div>
