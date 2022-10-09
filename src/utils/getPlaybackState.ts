@@ -14,7 +14,7 @@ const getPlaybackState = async (accessToken: string) => {
   }
 
   const userPlaybackState: SpotifyApi.CurrentlyPlayingResponse = await res.json();
-
+  
   const userPlaybackInfo: PlaybackInfoI = {
     isPlaying: userPlaybackState.is_playing,
     deviceName: userPlaybackState.device.name,
@@ -25,7 +25,9 @@ const getPlaybackState = async (accessToken: string) => {
       trackName: userPlaybackState.item?.name,
       // @ts-ignore
       artist: userPlaybackState.item?.artists[0].name,
-      href: userPlaybackState.item?.external_urls.spotify
+      href: userPlaybackState.item?.external_urls.spotify,
+      // @ts-ignore
+      thumbnailImage: userPlaybackState.item?.album?.images[0],
     } : undefined,
     episodeInfo: userPlaybackState.currently_playing_type === 'episode' ? {
       // @ts-ignore

@@ -14,7 +14,8 @@ interface TrackInfoI {
   album: string,
   trackName?: string,
   artist?: string,
-  href?: string
+  href?: string,
+  thumbnailImage?: {url: string, width: number, height: number}
 }
 interface PlaybackInfoI {
   isPlaying: boolean,
