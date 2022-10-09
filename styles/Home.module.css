@@ -11,6 +11,56 @@
   justify-content: center;
   align-items: center;
 }
+/* currently playing track image */
+#outerContainer {
+  border: 1px solid #393433;
+  border-radius: 50%;
+  background-color: #2a2727;
+  padding: 140px;
+  position: absolute;
+  top: 25%;
+  left: 12%;
+  z-index: -1;
+}
+#thumbnailImageContainer {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 125px;
+  border: 1px solid #393433;
+  opacity: 0.5;
+}
+
+#thumbnailImageContainer span {
+  padding: 10px;
+  border-radius: 125px;
+  -webkit-animation: spin 30s linear infinite;
+  -moz-animation: spin 30s linear infinite;
+  animation: spin 30s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
 
 .footer {
   display: flex;
