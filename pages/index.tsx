@@ -1,6 +1,8 @@
 import Head from 'next/head'
 // react
 import { useEffect, useState } from 'react'
+// react icons
+import { FiExternalLink } from 'react-icons/fi'
 // components
 import { Footer } from '../src/components/Footer'
 import { LoginButton } from '../src/components/LoginButton'
@@ -32,7 +34,7 @@ const Home: NextPage = () => {
       const accessToken = extractTokenFromHash(hash);
       window.localStorage.setItem("token", accessToken);
       window.location.hash = "";
-      
+
       setAccessToken(accessToken);
     }
   }, []);
@@ -68,19 +70,40 @@ const Home: NextPage = () => {
           {!accessToken ?
             <LoginButton scope={scope}/>
             :
-            <div style={{display: 'block'}}>
+            <div style={{ display: 'block' }}>
+              {/* show playback state information */}
+              <p className={styles.mainFont} style={{ margin: '8px 0', color: 'lightskyblue' }}>
+                Currently Playing --- {'  '}
+                {playbackState ?
+                  // link to currently playing track
+                  <a href={JSON.parse(playbackState).trackInfo.href} target='_blank' rel="noopener noreferrer">
+                    {JSON.parse(playbackState).trackInfo.trackName}
+                    <FiExternalLink style={{ margin: '0 0 0 10px' }} />
+                  </a>
+                  :
+                  'Nothing'
+                }
+              </p>
+              {playbackState &&
+                <div className={styles.mainFont} style={{ padding: '0 1rem' }}>
+                  <p style={{ margin: '4px 0' }}>Artist: {JSON.parse(playbackState).trackInfo.artist}</p>
+                  <p style={{ margin: '4px 0' }}>Album: {JSON.parse(playbackState).trackInfo.album}</p>
+                  <p style={{ margin: '4px 0' }}>Device: {JSON.parse(playbackState).deviceName}</p>
+                </div>
+              }
+              {/* {playbackState? <pre style={{maxWidth: '500px', overflowX: 'scroll'}}>{playbackState}</pre> : ''} */}
+              <br />
               {/* show last 5 recently played tracks */}
               {recentlyPlayed &&
                 <div className={styles.mainFont}>
+                  <p style={{color: 'lightskyblue'}}>
+                    Last Played --- {'  '}
+                  </p>
                   {recentlyPlayed.slice(0, 5).map(item => {
-                    return <div key={`${item.title}:${item.playedAt}`}>{item.title}  - {item.artist}</div>
+                    return <p key={`${item.title}:${item.playedAt}`} style={{ margin: '5px 0' }}>{item.title}  - {item.artist}</p>
                   })}
                 </div>
               }
-              <br/>
-              {/* show playback state information */}
-              <p className={styles.mainFont}>Currently Playing --- </p>
-              {playbackState? <pre style={{maxWidth: '500px', overflowX: 'scroll'}}>{playbackState}</pre> : ''}
               <br/>
               {/* logout button */}
               <button className={styles.code} onClick={()=>handleSpotifyLogout(setAccessToken)}>Log out &rarr;</button>
