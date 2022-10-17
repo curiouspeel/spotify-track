@@ -78,6 +78,16 @@ const Home: NextPage = () => {
             </div>
           </div>
         }
+        {playbackState && JSON.parse(playbackState).currentlyPlayingType === 'episode' &&
+          <div id={styles.outerContainer}>
+            <div id={styles.thumbnailImageContainer}>
+              <Image
+                src={JSON.parse(playbackState).episodeInfo.thumbnailImage.url}
+                height={250} width={250}
+              />
+            </div>
+          </div>
+        }
         <div className={styles.grid}>
           {!accessToken ?
             <LoginButton scope={scope}/>
@@ -87,21 +97,38 @@ const Home: NextPage = () => {
               <p className={styles.mainFont} style={{ margin: '8px 0', color: 'lightskyblue' }}>
                 Currently Playing --- {'  '}
                 {playbackState ?
-                  // link to currently playing track
-                  <a href={JSON.parse(playbackState).trackInfo.href} target='_blank' rel="noopener noreferrer">
-                    {JSON.parse(playbackState).trackInfo.trackName}
-                    <FiExternalLink style={{ margin: '0 0 0 10px' }} />
-                  </a>
+                  (JSON.parse(playbackState).currentlyPlayingType === 'track'?
+                    // link to currently playing track
+                    <a href={JSON.parse(playbackState).trackInfo.href} target='_blank' rel="noopener noreferrer">
+                      {JSON.parse(playbackState).trackInfo.trackName}
+                      <FiExternalLink style={{ margin: '0 0 0 10px' }} />
+                    </a>
+                    :
+                    <a href={JSON.parse(playbackState).episodeInfo.href} target='_blank' rel="noopener noreferrer" style={{color: 'white'}}>
+                      {JSON.parse(playbackState).episodeInfo.episodeName}
+                      <FiExternalLink style={{ margin: '0 0 0 10px' }} />
+                    </a>
+                  )
                   :
                   'Nothing'
                 }
               </p>
               {playbackState &&
-                <div className={styles.mainFont} style={{ padding: '0 1rem' }}>
-                  <p style={{ margin: '4px 0' }}>Artist: {JSON.parse(playbackState).trackInfo.artist}</p>
-                  <p style={{ margin: '4px 0' }}>Album: {JSON.parse(playbackState).trackInfo.album}</p>
-                  <p style={{ margin: '4px 0' }}>Device: {JSON.parse(playbackState).deviceName}</p>
-                </div>
+                (JSON.parse(playbackState).currentlyPlayingType === 'track' ?
+                  <div className={styles.mainFont} style={{ padding: '0 1rem' }}>
+                    <p style={{ margin: '4px 0' }}>Artist: {JSON.parse(playbackState).trackInfo.artist}</p>
+                    <p style={{ margin: '4px 0' }}>Album: {JSON.parse(playbackState).trackInfo.album}</p>
+                    <p style={{ margin: '4px 0' }}>Device: {JSON.parse(playbackState).deviceName}</p>
+                  </div>
+                  :
+                  <div className={styles.mainFont} style={{ padding: '0 1rem' }}>
+                    <p style={{ margin: '10px 0' }}>Podcast: {JSON.parse(playbackState).episodeInfo.show}</p>
+                    <p style={{ margin: '10px 0' }}>Description: 
+                    <span style={{fontSize: '12px', color: 'grey', display: 'block', padding: '5px 0'}}>{JSON.parse(playbackState).episodeInfo.description}</span>
+                    </p>
+                    <p style={{ margin: '10px 0' }}>Device: {JSON.parse(playbackState).deviceName}</p>
+                  </div>
+                )
               }
               {/* {playbackState? <pre style={{maxWidth: '500px', overflowX: 'scroll'}}>{playbackState}</pre> : ''} */}
               <br />
