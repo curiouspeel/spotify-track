@@ -8,7 +8,8 @@ interface EpisodeInfoI {
   show?: string,
   episodeName?: string,
   description?: string,
-  href?: string
+  href?: string,
+  thumbnailImage?: {url: string, width: number, height: number}
 }
 interface TrackInfoI {
   album: string,

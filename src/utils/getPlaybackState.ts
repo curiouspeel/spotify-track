@@ -35,9 +35,11 @@ const getPlaybackState = async (accessToken: string) => {
       episodeName: userPlaybackState.item?.name,
       // @ts-ignore
       description: userPlaybackState.item?.description,
-      href: userPlaybackState.item?.external_urls.spotify
+      href: userPlaybackState.item?.external_urls.spotify,
+      // @ts-ignore
+      thumbnailImage: userPlaybackState.item?.images[0],
     } : undefined,
-
+    
   }
   return JSON.stringify(userPlaybackInfo, null, 2);
 }
