@@ -77,6 +77,10 @@
   align-items: center;
   flex-grow: 1;
 }
+.footer p {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
 
 .title a {
   color: #0070f3;
@@ -133,7 +137,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 650px;
 }
 
 .card {
